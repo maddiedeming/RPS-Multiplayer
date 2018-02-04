@@ -43,19 +43,26 @@ firebase.auth().onAuthStateChanged(function(user){
                 game: gameNumber
             }
         });
-        chatRef.set({});        
-        ref.on("value", function(snapshot) {
-            if(uid === (Object.keys(snapshot.val())[0])){
-                database.ref().update({
-                    ['playersOnline/' + uid + '/gameDetails/playerNumber/']: 1
-                })
-            }
-            else if(uid === (Object.keys(snapshot.val())[1])){
-                database.ref().update({
-                    ['playersOnline/' + uid + '/gameDetails/playerNumber/']: 2
-                })
-            }
-          })
+        chatRef.set({});    
+        // ref = firebase.database().ref('playersOnline/');
+        // ref.on("value", function(snapshot) {
+        //     playerOne = Object.keys(snapshot.val())[0];
+        //     playerTwo = Object.keys(snapshot.val())[1];
+        // })
+        // console.log(uid)
+        // console.log(playerOne)
+        // console.log(playerTwo)
+        // if(uid === playerOne){
+        //     database.ref().update({
+        //         ['playersOnline/' + uid + '/gameDetails/playerNumber/']: 1
+        //     })
+        // }
+        // else if(uid === playerTwo){
+        //     database.ref().update({
+        //         ['playersOnline/' + uid + '/gameDetails/playerNumber/']: 2
+        //     })
+        // }
+                 
         ref.onDisconnect().remove();
         chatRef.onDisconnect().remove();
     } 
@@ -86,6 +93,9 @@ database.ref().orderByKey().on("child_added", function(snapshot){
         if(playerTwo === undefined){
             $("#waiting").show();
             $("#lobby").show();
+            database.ref().update({
+                ['playersOnline/' + uid + '/gameDetails/playerNumber/']: 1
+            })
             setTimeout(function(){
                 window.location.reload(1);
             }, 5000);
@@ -108,6 +118,9 @@ database.ref().orderByKey().on("child_added", function(snapshot){
             }
             else if (uid === playerTwo){
                 var column2 = $("#column2");
+                database.ref().update({
+                    ['playersOnline/' + uid + '/gameDetails/playerNumber/']: 2
+                })
                 letsPlay();
                 $("#userText").hide();
                 $("#lobby").hide();
