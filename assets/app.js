@@ -8,7 +8,6 @@ var playerTwoSelect = "";
 var gameNumber = 1;
 var gameNumber1;
 var gameNumber2;
-var audio = document.getElementsByTagName("audio")[0];
 var popup = "";
 var chatPlayer; 
 $("#userText").hide();
@@ -43,28 +42,9 @@ firebase.auth().onAuthStateChanged(function(user){
                 game: gameNumber
             }
         });
-        chatRef.set({});    
-        // ref = firebase.database().ref('playersOnline/');
-        // ref.on("value", function(snapshot) {
-        //     playerOne = Object.keys(snapshot.val())[0];
-        //     playerTwo = Object.keys(snapshot.val())[1];
-        // })
-        // console.log(uid)
-        // console.log(playerOne)
-        // console.log(playerTwo)
-        // if(uid === playerOne){
-        //     database.ref().update({
-        //         ['playersOnline/' + uid + '/gameDetails/playerNumber/']: 1
-        //     })
-        // }
-        // else if(uid === playerTwo){
-        //     database.ref().update({
-        //         ['playersOnline/' + uid + '/gameDetails/playerNumber/']: 2
-        //     })
-        // }
-                 
+        chatRef.set({});                  
         ref.onDisconnect().remove();
-        chatRef.onDisconnect().remove();
+        //chatRef.onDisconnect().remove();
     } 
     else{
         // error
@@ -93,9 +73,6 @@ database.ref().orderByKey().on("child_added", function(snapshot){
         if(playerTwo === undefined){
             $("#waiting").show();
             $("#lobby").show();
-            database.ref().update({
-                ['playersOnline/' + uid + '/gameDetails/playerNumber/']: 1
-            })
             setTimeout(function(){
                 window.location.reload(1);
             }, 5000);
@@ -105,6 +82,9 @@ database.ref().orderByKey().on("child_added", function(snapshot){
             var gameDisplay = $("#gameDisplay");
             if(uid === playerOne){
                 var column1 = $("#column1");
+                database.ref().update({
+                    ['playersOnline/' + uid + '/gameDetails/playerNumber/']: 1
+                })
                 letsPlay();
                 $("#userText").hide();
                 $("#lobby").hide();
@@ -137,7 +117,6 @@ database.ref().orderByKey().on("child_added", function(snapshot){
                 $("#userText").show();
                 $("#userText").text("Oh no! Looks like you'll need to wait in line.");
             }
-    
         }
     }
 });
@@ -187,8 +166,6 @@ database.ref().orderByKey().on("child_changed", function(snapshot){
             
             }
         }
-
-
         if(playerOneSelect !== ""){
             $("#selectionMadeOne h4").removeClass("invisible");
         }
@@ -199,10 +176,6 @@ database.ref().orderByKey().on("child_changed", function(snapshot){
     }
 });
 function animateTitle(){
-    audio.currentTime = 4;
-    setTimeout(function (){
-        audio.play();
-    }, 1000);
     $("#titleRock").addClass("text-danger");
     $("#titlePaper").addClass("text-warning");
     $("#titleScissors").addClass("text-success");
@@ -221,15 +194,23 @@ function letsPlay(){
     var playerOneRock =     $('<div class="card mx-auto mx-2 my-2" style="width:20rem;"><button id="rockPlayerOne" data-value="rock" onclick="playerOneButton(this)" class="playerOne playerOneColor rounded-0 text-center btn"><i class="far fa-hand-rock fa-7x"></i></button><div class="card-block bg-white"><h4 class="card-title">Rock</h4></div></div>');
     var playerOnePaper =    $('<div class="card mx-auto mx-2 my-2" style="width:20rem;"><button id="paperPlayerOne" data-value="paper" onclick="playerOneButton(this)" class="playerOne playerOneColor rounded-0 text-center btn"><i class="far fa-hand-paper fa-7x"></i></button><div class="card-block"><h4 class="card-title">Paper</h4></div></div>');
     var playerOneScissors = $('<div class="card mx-auto mx-2 my-2" style="width:20rem;"><button id="scissorsPlayerOne" data-value="scissors" onclick="playerOneButton(this)" class="playerOne playerOneColor rounded-0 text-center btn"><i class="far fa-hand-scissors fa-7x"></i></button><div class="card-block"><h4 class="card-title">Scissors</h4></div></div>');
+    var playerOneLizard =   $('<div class="card mx-auto mx-2 my-2" style="width:20rem;"><button id="lizardPlayerOne" data-value="lizard" onclick="playerOneButton(this)" class="playerOne playerOneColor rounded-0 text-center btn"><i class="far fa-hand-lizard fa-7x"></i></button><div class="card-block"><h4 class="card-title">Lizard</h4></div></div>');
+    var playerOneSpock =    $('<div class="card mx-auto mx-2 my-2" style="width:20rem;"><button id="spockPlayerOne" data-value="spock" onclick="playerOneButton(this)" class="playerOne playerOneColor rounded-0 text-center btn"><i class="far fa-hand-spock fa-7x"></i></button><div class="card-block"><h4 class="card-title">Spock</h4></div></div>');
     $("#playerOne").append(playerOneRock);
     $("#playerOne").append(playerOnePaper);
     $("#playerOne").append(playerOneScissors);
+    $("#playerOne").append(playerOneLizard);
+    $("#playerOne").append(playerOneSpock);
     var playerTwoRock =     $('<div class="card mx-auto mx-2 my-2" style="width:20rem;"><button id="rockPlayerTwo" data-value="rock" onclick="playerTwoButton(this)" class="playerTwo playerTwoColor rounded-0 text-center btn"><i class="far fa-hand-rock fa-7x"></i></button><div class="card-block"><h4 class="card-title">Rock</h4></div></div>');
     var playerTwoPaper =    $('<div class="card mx-auto mx-2 my-2" style="width:20rem;"><button id="paperPlayerTwo" data-value="paper" onclick="playerTwoButton(this)" class="playerTwo playerTwoColor rounded-0 text-center btn"><i class="far fa-hand-paper fa-7x"></i></button><div class="card-block"><h4 class="card-title">Paper</h4></div></div>');
     var playerTwoScissors = $('<div class="card mx-auto mx-2 my-2" style="width:20rem;"><button id="scissorsPlayerTwo" data-value="scissors" onclick="playerTwoButton(this)" class="playerTwo playerTwoColor rounded-0 text-center btn"><i class="far fa-hand-scissors fa-7x"></i></button><div class="card-block"><h4 class="card-title">Scissors</h4></div></div>');
+    var playerTwoLizard =   $('<div class="card mx-auto mx-2 my-2" style="width:20rem;"><button id="lizardPlayerTwo" data-value="lizard" onclick="playerTwoButton(this)" class="playerTwo playerTwoColor rounded-0 text-center btn"><i class="far fa-hand-lizard fa-7x"></i></button><div class="card-block"><h4 class="card-title">Lizard</h4></div></div>');
+    var playerTwoSpock =    $('<div class="card mx-auto mx-2 my-2" style="width:20rem;"><button id="spockPlayerTwo" data-value="spock" onclick="playerTwoButton(this)" class="playerTwo playerTwoColor rounded-0 text-center btn"><i class="far fa-hand-spock fa-7x"></i></button><div class="card-block"><h4 class="card-title">Spock</h4></div></div>');
     $("#playerTwo").append(playerTwoRock);
     $("#playerTwo").append(playerTwoPaper);
     $("#playerTwo").append(playerTwoScissors);
+    $("#playerTwo").append(playerTwoLizard);
+    $("#playerTwo").append(playerTwoSpock);
 };
 //
 function chooseWinner(){
@@ -238,7 +219,6 @@ function chooseWinner(){
         setTimeout(function(){
             $(".title span").css("opacity","1");
             $(".title span").removeClass("text-danger text-warning text-success");
-            audio.pause();
             var game = "";
             $(".playerOne").attr("disabled","disabled");
             $(".playerTwo").attr("disabled","disabled");
@@ -246,7 +226,6 @@ function chooseWinner(){
             $("#playerTwo").show();
             $("#selectionOne").hide();
             $("#selectionTwo").hide();
-            $("#gameDisplay").removeClass("invisible");
             if(playerOneSelect === playerTwoSelect){
                 game = "tie"
                 $("#gameOutcome").text("It's a " + game + "!");
@@ -256,7 +235,7 @@ function chooseWinner(){
                 $("#" + playerTwoSelect + "PlayerTwo").removeClass("playerTwoColor");
             }
             else{
-                if(playerOneSelect === "rock" && playerTwoSelect === "scissors" || playerOneSelect === "paper" && playerTwoSelect === "rock" || playerOneSelect === "scissors" && playerTwoSelect === "paper"){
+                if(playerOneSelect === "rock" && playerTwoSelect === "scissors" || playerOneSelect === "paper" && playerTwoSelect === "rock" || playerOneSelect === "scissors" && playerTwoSelect === "paper" || playerOneSelect === "rock" && playerTwoSelect === "lizard" || playerOneSelect === "lizard" && playerTwoSelect === "spock" || playerOneSelect === "spock" && playerTwoSelect === "scissors" || playerOneSelect === "scissors" && playerTwoSelect === "lizard" || playerOneSelect === "lizard" && playerTwoSelect === "paper" || playerOneSelect === "paper" && playerTwoSelect === "spock"  || playerOneSelect === "spock" && playerTwoSelect === "rock"){
                     game = "Player 1"
                     $("#" + playerOneSelect + "PlayerOne").addClass("btn-success");
                     $("#" + playerTwoSelect + "PlayerTwo").addClass("btn-danger");
@@ -358,6 +337,7 @@ function exitButton(){
 function exitGame(){
     popUp = $('<div class="modal fade"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Exit</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><p>Are you sure you want to quit?</p></div><div class="modal-footer"><button type="button" onclick="exitButton()" class="btn btn-primary">Exit Game</button><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div></div></div></div>');
     $(popUp).modal("show");
+    window.open('', '_self', ''); window.close();
 }
 
 function sendChat(){

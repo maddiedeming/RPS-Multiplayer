@@ -9,28 +9,16 @@
         <script defer src="https://use.fontawesome.com/releases/v5.0.1/js/all.js"></script>  
     </head>
     <body>
-        <nav class="navbar navbar-dark bg-dark">
+        <nav class="navbar navbar-dark bg-dark text-center">
             <form class="form-inline">
                 <button disabled class="btn btn-primary ml-1 mr-1" type="button">Game <span id="roundNumber" class="badge badge-light">0</span></button>
-                <div class="dropdown">
-                    <button class="btn btn-info ml-1 mr-1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Chat <i class="far fa-comments"></i></button>
-                    <div class="dropdown-menu">
-                        <div id="chatMessages" class="container"></div>
-                        <div class="container">
-                            <div class="input-group ml-0 mr-0 row" style="float:left;width:100%;">
-                                <input id="chatText" type="text" class="border-0 form-control rounded-left">
-                                <div class="input-group-append">
-                                    <button onclick="sendChat()" class="btn btn-success rounded-right" type="button">Send</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            </form>    
             <h6 class="title text-white pb-2">
                     <span id="titleRock"><i class="fas fa-3x fa-hand-rock mr-3"></i></span>
                     <span id="titlePaper"><i class="fas fa-3x fa-hand-paper mr-3"></i> </span>
-                    <span id="titleScissors"><i class="fas fa-3x fa-hand-scissors"></i></span>
+                    <span id="titleScissors"><i class="fas fa-3x fa-hand-scissors mr-3"></i></span>
+                    <span id="titleLizard"><i class="fas fa-3x fa-hand-lizard mr-3"></i></span>
+                    <span id="titleSpock"><i class="fas fa-3x fa-hand-spock"></i></span>
             </h6>
                 <div id="lobby" class="text-center text-white">
                     <p id="userText" class="lead"></p>
@@ -46,57 +34,59 @@
                         <div id="playerOne"></div>
                         <div id="selectionOne">
                             <div class="card mx-auto mx-2 my-2" style="width:20rem;border:none;"><div class="text-center playerOneColor" style="border:none;height:100%;width:100%;"><i style="color:white;" class="invisible fas fa-question fa-7x playerOneColor"></i></div><div class="card-block pb-3 playerOneColor"><h4 class="card-title playerOneText">PLACEHOLDER</h4></div></div>
+                            <div class="card mx-auto mx-2 my-2" style="width:20rem;border:none;"><div class="text-center playerOneColor" style="border:none;height:100%;width:100%;"><i style="color:white;" class="invisible fas fa-question fa-7x playerOneColor"></i></div><div class="card-block pb-3 playerOneColor"><h4 class="card-title playerOneText">PLACEHOLDER</h4></div></div>
                             <div class="card mx-auto mx-2 my-2" style="width:20rem;border:none;"><div class="text-center playerOneColor" style="border:none;height:100%;width:100%;"><i style="color:white;" class="fas fa-question fa-7x playerOneColor"></i></div><div class="card-block pb-3 text-white" id="selectionMadeOne" style="background-color:#a1b2f6;"><h4 class="card-title invisible">SELECTION MADE</h4></div></div>
+                            <div class="card mx-auto mx-2 my-2" style="width:20rem;border:none;"><div class="text-center playerOneColor" style="border:none;height:100%;width:100%;"><i style="color:white;" class="invisible fas fa-question fa-7x playerOneColor"></i></div><div class="card-block pb-3 playerOneColor"><h4 class="card-title playerOneText">PLACEHOLDER</h4></div></div>
                             <div class="card mx-auto mx-2 my-2" style="width:20rem;border:none;"><div class="text-center playerOneColor" style="border:none;height:100%;width:100%;"><i style="color:white;" class="invisible fas fa-question fa-7x playerOneColor"></i></div><div class="card-block pb-3 playerOneColor"><h4 class="card-title playerOneText">PLACEHOLDER</h4></div></div>
                         </div>
                     </div>
                 </div>
                 <div id="gameDisplay" class="col-lg-4">
-                    <div id="trophy" class="invisible card mx-auto mx-2 my-2 bg-light" style="width:20rem;border:none;height:100%;">
+                    <div id="trophy" class="invisible card mx-auto mx-2 my-2 bg-light" style="width:20rem;border:none;">
                         <h4 id="gameOutcome" class="card-title text-white mb-0 pt-2 pb-2 rounded-top" style="background-color:gold;">WINNER</h4>
-                        <button onclick="reset()" class="btn text-center btn-light" style="border:none;height:100%;">
+                        <button onclick="reset()" class="btn text-center btn-light" style="border:none;">
                             <i style="color:gold;" class="fas fa-trophy fa-7x"></i>
                         </button>
                     </div>
+                    <div id="chatBox" class="panel-group">
+                        <div class="panel pt-2 panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title"><span class="badge badge-pill badge-info">Chat</span></h4>
+                            </div>
+                            <div class="panel">
+                                <div id="chatMessages" class="panel-body" style="height:300px;overflow:scroll;background-color:#f1f1f1;"></div>
+                                <div class="panel-footer">
+                                    <form>
+                                        <div class="input-group ml-0 mr-0 row" style="float:left;width:100%;">
+                                            <input id="chatText" type="text" style="background-color:#dfdfdf;" class="border-0 form-control rounded-left">
+                                            <div class="input-group-append">
+                                                <button onclick="sendChat()" class="btn btn-success rounded-right" type="button">Send</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <div class="pt-5">
+                    <iframe width="350" height="350" src="https://www.youtube.com/embed/cSLeBKT7-sM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
                 </div>
                 <div id="column2" class="col-lg-4">
                     <h1 class="playerTwoText">Player Two</h1>
                     <div id="playerTwoBackground" class="playerTwoColor rounded">
                         <div id="playerTwo"></div>
                         <div iv id="selectionTwo">
-                            <div class="card mx-auto mx-2 my-2" style="width:20rem;border:none;">
-                                <div class="text-center playerTwoColor" style="border:none;height:100%;width:100%;">
-                                    <i style="color:white;" class="invisible fas fa-question fa-7x playerTwoColor"></i>
-                                </div>
-                                <div class="card-block pb-3 playerTwoColor">
-                                    <h4 class="card-title playerTwoText">PLACEHOLDER</h4>
-                                </div>
-                            </div>
-                            <div class="card mx-auto mx-2 my-2" style="width:20rem;border:none;">
-                                <div class="text-center playerTwoColor" style="border:none;height:100%;width:100%;">
-                                    <i style="color:white;" class="fas fa-question fa-7x playerTwoColor"></i>
-                                </div><div class="card-block pb-3 text-white" id="selectionMadeTwo" style="background-color:#c0e48e;">
-                                    <h4 class="card-title invisible">SELECTION MADE</h4>
-                                </div>
-                            </div>
-                            <div class="card mx-auto mx-2 my-2" style="width:20rem;border:none;">
-                                <div class="text-center playerTwoColor" style="border:none;height:100%;width:100%;">
-                                    <i style="color:white;" class="invisible fas fa-question fa-7x playerTwoColor"></i>
-                                </div>
-                                <div class="card-block pb-3 playerTwoColor">
-                                    <h4 class="card-title playerTwoText">PLACEHOLDER</h4>
-                                </div>
-                            </div>
+                            <div class="card mx-auto mx-2 my-2" style="width:20rem;border:none;"><div class="text-center playerTwoColor" style="border:none;height:100%;width:100%;"><i style="color:white;" class="invisible fas fa-question fa-7x playerTwoColor"></i></div><div class="card-block pb-3 playerTwoColor"><h4 class="card-title playerTwoText">PLACEHOLDER</h4></div></div>
+                            <div class="card mx-auto mx-2 my-2" style="width:20rem;border:none;"><div class="text-center playerTwoColor" style="border:none;height:100%;width:100%;"><i style="color:white;" class="invisible fas fa-question fa-7x playerTwoColor"></i></div><div class="card-block pb-3 playerTwoColor"><h4 class="card-title playerTwoText">PLACEHOLDER</h4></div></div>
+                            <div class="card mx-auto mx-2 my-2" style="width:20rem;border:none;"><div class="text-center playerTwoColor" style="border:none;height:100%;width:100%;"><i style="color:white;" class="fas fa-question fa-7x playerTwoColor"></i></div><div class="card-block pb-3 text-white" id="selectionMadeTwo" style="background-color:#c0e48e;"><h4 class="card-title invisible">SELECTION MADE</h4></div></div>
+                            <div class="card mx-auto mx-2 my-2" style="width:20rem;border:none;"><div class="text-center playerTwoColor" style="border:none;height:100%;width:100%;"><i style="color:white;" class="invisible fas fa-question fa-7x playerTwoColor"></i></div><div class="card-block pb-3 playerTwoColor"><h4 class="card-title playerTwoText">PLACEHOLDER</h4></div></div>
+                            <div class="card mx-auto mx-2 my-2" style="width:20rem;border:none;"><div class="text-center playerTwoColor" style="border:none;height:100%;width:100%;"><i style="color:white;" class="invisible fas fa-question fa-7x playerTwoColor"></i></div><div class="card-block pb-3 playerTwoColor"><h4 class="card-title playerTwoText">PLACEHOLDER</h4></div></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <footer>
-            <audio style="display:none;">
-                <source id="readySetGo" src="assets/sounds/ready-set-go.mp3"></source>
-            </audio>
-        </footer>
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>        
