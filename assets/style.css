@@ -16,6 +16,12 @@
 .dropdown-menu.show {
     width:350px;
 }
+.floatLeft {
+    float: left;
+}
+.floatRight {
+    float: right;
+}
 /* ANIMATIONS */
 .waiting span {
     animation-name: blink;

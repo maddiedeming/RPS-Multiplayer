@@ -93,8 +93,6 @@ database.ref().orderByKey().on("child_added", function(snapshot){
                 $("#playerOneBackground").removeClass("playerOneColor");
                 $("#game").prepend(gameDisplay);
                 $("#game").prepend(column1);
-                $(".playerOneChat").css("float","right");
-                $(".playerTwoChat").css("float","left");
             }
             else if (uid === playerTwo){
                 var column2 = $("#column2");
@@ -109,8 +107,6 @@ database.ref().orderByKey().on("child_added", function(snapshot){
                 $("#playerTwoBackground").removeClass("playerTwoColor");
                 $("#game").prepend(gameDisplay);
                 $("#game").prepend(column2);
-                $(".playerOneChat").css("float","left");
-                $(".playerTwoChat").css("float","right");
             }
             else{
                 $("#lobby").show();
@@ -151,8 +147,6 @@ database.ref().orderByKey().on("child_changed", function(snapshot){
                 $("#playerOne").show();
                 $("#playerTwo").hide();
                 $("#selectionOne").hide();
-                $(".playerOneChat").css("float","right");
-                $(".playerTwoChat").css("float","left");
             }
         }
         if(playerTwo !== undefined){
@@ -160,10 +154,7 @@ database.ref().orderByKey().on("child_changed", function(snapshot){
             if(uid === playerTwo){
                 $("#playerOne").hide();
                 $("#playerTwo").show();
-                $("#selectionTwo").hide();
-                $(".playerOneChat").css("float","left");
-                $(".playerTwoChat").css("float","right");
-            
+                $("#selectionTwo").hide();           
             }
         }
         if(playerOneSelect !== ""){
@@ -176,12 +167,16 @@ database.ref().orderByKey().on("child_changed", function(snapshot){
     }
 });
 function animateTitle(){
-    $("#titleRock").addClass("text-danger");
-    $("#titlePaper").addClass("text-warning");
-    $("#titleScissors").addClass("text-success");
+    $("#titleRock").addClass("text-primary");
+    $("#titlePaper").addClass("text-danger");
+    $("#titleScissors").addClass("text-warning");
+    $("#titleLizard").addClass("text-success");
+    $("#titleSpock").addClass("text-info");
     $("#titleRock").delay(1000);
     $("#titlePaper").delay(1500);
     $("#titleScissors").delay(2000);
+    $("#titleLizard").delay(2500);
+    $("#titleSpock").delay(3000);
     $(".title span").animate({opacity: '0.2'},"slow");
     $(".title span").animate({opacity: '1'}, "slow");
 }
@@ -218,7 +213,7 @@ function chooseWinner(){
         animateTitle();
         setTimeout(function(){
             $(".title span").css("opacity","1");
-            $(".title span").removeClass("text-danger text-warning text-success");
+            $(".title span").removeClass("text-primary text-danger text-warning text-success text-info");
             var game = "";
             $(".playerOne").attr("disabled","disabled");
             $(".playerTwo").attr("disabled","disabled");
@@ -345,10 +340,18 @@ function sendChat(){
     var chatText = $("#chatText").val();
     $("#chatText").val("");
     if(uid === playerOne){
-        chatPlayer = 1;
+        chatPlayer = 1;                
+        $(".playerOneChat").addClass("floatRight");
+        $(".playerTwoChat").addClass("floatLeft");
+        $(".playerOneChat").removeClass("floatLeft");
+        $(".playerTwoChat").removeClass("floatRight");       
     }
     else if(uid === playerTwo){
         chatPlayer = 2;
+        $(".playerOneChat").addClass("floatLeft");
+        $(".playerTwoChat").addClass("floatRight");
+        $(".playerOneChat").removeClass("floatRight");
+        $(".playerTwoChat").removeClass("floatLeft");
     }
     var message = {
         sender: chatPlayer,
